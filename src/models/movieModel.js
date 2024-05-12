@@ -57,12 +57,12 @@ const movieSchema = new Schema(
         createdAt: {
 			type: Date,
 			immutable: true,
-			default: Date().now(),
+			default: Date.now,
 		},
         updatedAt: {
 			type: Date,
 			immutable: true,
-			default: Date().now(),
+			default: Date.now,
 		},
         similarBestMovie: {
 			type: mongoose.SchemaTypes.ObjectId,
@@ -93,12 +93,12 @@ movieSchema.post('save', function (doc, next) {
     next();
 });
 
-movieModel.post('remove', function (doc, next) {
+movieSchema.post('remove', function (doc, next) {
     console.log('Document removed successfully:', doc);
     next();
 });
 
-movieModel.post('updateOne', function (result, next) {
+movieSchema.post('updateOne', function (result, next) {
     console.log('Document updated successfully:', result);
     next();
 });

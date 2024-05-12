@@ -1,37 +1,27 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const Movie = require('./models/movieModel');
-
 const app = express();
-const db = mongoose.connect('mongodb://127.0.0.1:27017/entertainment?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.5');
+const movieRouter = require('./routes/movieRouter');
+const { connectDatabase } = require('./config/database');
+const config = require('./config/config');
+const routes = require('./config/route.config');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpecs = require('./config/swagger.config'); 
+
 const port = process.env.PORT || 3000;
-const movieRouter = express.Router();
 
-movieRouter.route('/movies')
-    .get(async (req, res) => {
-        // Movie.find((err, books) => {
-        //     if(err){
-        //         console.log(err);
-        //         return res.send(err);
-        //     }
-        //     console.log(books);
-        //     return res.send(books);
-        // });
-        try {
-            const query = {};
-            if(req.query.director){
-                req.query = req.query.director;
-            }
-            const movies = await Movie.find(req.query.director);
-            return res.json(movies);
-        } catch (err) {
-            console.error(err);
-            return res.status(500).send(err);
-        }
+// Middleware
+app.use(express.json());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+app.use(routes);
+
+// Start server and connect to database
+connectDatabase(config.dbURL, config.dbOptions)
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Server is running on port ${port}`);
+        });
+    })
+    .catch(err => {
+        console.error('Database connection error:', err);
     });
-
-app.use('/api', movieRouter);
-
-app.listen(port, () => {
-    console.log(`Running on port ${port}`);
-})
