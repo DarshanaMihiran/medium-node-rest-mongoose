@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
-const movieRouter = require('./routes/movieRouter');
-const { connectDatabase } = require('./config/database');
+const { connectDatabase } = require('./config/database.config');
 const config = require('./config/config');
 const routes = require('./config/route.config');
 const swaggerUi = require('swagger-ui-express');
