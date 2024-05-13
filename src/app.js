@@ -5,6 +5,7 @@ const config = require('./config/config');
 const routes = require('./config/route.config');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpecs = require('./config/swagger.config'); 
+const errorHandler = require('./middlewares/exceptionMiddleware');
 
 const port = process.env.PORT || 3000;
 
@@ -13,7 +14,7 @@ app.use(express.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 app.use(routes);
-
+app.use(errorHandler);
 // Start server and connect to database
 connectDatabase(config.dbURL, config.dbOptions)
     .then(() => {
