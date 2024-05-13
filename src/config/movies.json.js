@@ -1,4 +1,4 @@
-db.movies.insert([
+const movies = [
   {
     "title": "Inception",
     "year": 2010,
@@ -319,5 +319,6 @@ db.movies.insert([
     },
     "mainActors": ["Edward Norton", "Edward Furlong", "Beverly D'Angelo"]
   }
-]
-);
+];
+
+module.exports = { movies };

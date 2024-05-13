@@ -9,6 +9,8 @@ services:
       - "4001:4001"
     depends_on:
       - mongodb
+    environment:
+      NODE_ENV: production
 
   mongodb:
     image: mongo
