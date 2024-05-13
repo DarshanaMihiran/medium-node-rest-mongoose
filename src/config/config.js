@@ -1,5 +1,6 @@
 module.exports = {
-    dbURL: 'mongodb://127.0.0.1:27017/entertainment',
+    dbURL: 'mongodb://localhost:27017/entertainment',
+    // dbURL: 'mongodb://mongodb:27017/entertainment',
     dbOptions: {
         directConnection: true,
         serverSelectionTimeoutMS: 2000,

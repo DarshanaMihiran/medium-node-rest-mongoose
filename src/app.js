@@ -15,7 +15,7 @@ app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 app.use(routes);
 app.use(errorHandler);
-// Start server and connect to database
+//Start server and connect to database
 connectDatabase(config.dbURL, config.dbOptions)
     .then(() => {
         app.listen(port, () => {
