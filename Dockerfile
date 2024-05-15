@@ -1,11 +1,11 @@
-FROM node:20.6.1
+FROM node:20.6.1-alpine
 
 ENV NODE_ENV=production
 
 WORKDIR /urs/src/app
-COPY package*.json app.js ./
+COPY src/package*.json ./
 RUN npm install
-COPY . .
+COPY src/ .
 
 EXPOSE 4001
 CMD ["npm", "start"]
